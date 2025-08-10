@@ -23,6 +23,9 @@ Route::middleware('auth')->group(function () {
     Route::put('/event/update/{calendar}', [CalendarController::class, 'update']);
 
     Route::get('/pay-with-stripe', [StripeController::class, 'checkout'])->name('stripe.payement');
+    
+    Route::get('/admin-management', [CalendarController::class, 'index'])->name('admin-management')->middleware('role:admin');
+
 });
 
 require __DIR__.'/auth.php';

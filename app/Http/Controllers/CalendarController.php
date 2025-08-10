@@ -13,7 +13,8 @@ class CalendarController extends Controller
      */
     public function index()
     {
-        //
+        $events = Calendar::all();
+        return view('management',compact('events'));
     }
 
     /**

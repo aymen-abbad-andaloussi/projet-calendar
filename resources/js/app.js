@@ -38,7 +38,6 @@ document.addEventListener("DOMContentLoaded", async function () {
         selectMirror: true,
         selectOverlap: false,
         weekends: true,
-        editable: true,
         events: events,
         selectAllow: (info) => {
             return info.start >= nowDate;
@@ -53,19 +52,6 @@ document.addEventListener("DOMContentLoaded", async function () {
             end.value = endTime;
             submitBtn.click();
         },
-        eventClick: (info) => {
-            let eventId = info.event._def.publicId;
-            if (validateEventOwner(info)) {
-                deleteForm.action = `/event/destroy/${eventId}`;
-                deleteBtn.click();
-            }
-        },
-        eventResize: (info) => {
-            updateEvent(info);
-        },
-        eventDrop: (info) => {
-            updateEvent(info);
-        },
     });
 
     calendar.render();
@@ -77,18 +63,6 @@ document.addEventListener("DOMContentLoaded", async function () {
         return ownerId == authUser;
     }
 
-    function updateEvent(info) {
-        let eventId = info.event._def.publicId;
 
-        let start = info.event._instance.range.start;
-        let end = info.event._instance.range.end;
-        updateStart.value = start.toISOString().slice(0, 19);
-        updateEnd.value = end.toISOString().slice(0, 19);
 
-        if (validateEventOwner(info)) {
-            updateForm.action = `/event/update/${eventId}`;
-            updateBtn.click();
-            console.log(eventId);
-        }
-    }
 });
